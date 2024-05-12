@@ -10,35 +10,35 @@ export const getTodosList = async (): Promise<TodoType[]> => {
   ).data;
 };
 
-export const postTodo = async (params: TodoType): Promise<any> => {
+export const postTodo = async (body: TodoType): Promise<any> => {
   return (
     await Api<any>({
-      method: Method.GET,
+      method: Method.POST,
       url: "/todos",
-      params: params,
+      body,
     })
   ).data;
 };
 
-export const putTodo = async (params: TodoType): Promise<any> => {
+export const putTodo = async (body: TodoType): Promise<any> => {
   return (
     await Api<any>({
-      method: Method.GET,
-      url: `/todos/${params.id}`,
-      params: params,
+      method: Method.PUT,
+      url: `/todos/${body.id}`,
+      body,
     })
   ).data;
 };
 
 export const patchTodo = async (
-  params: Partial<Omit<TodoType, "id">>,
+  body: Partial<Omit<TodoType, "id">>,
   todoId: string
 ): Promise<any> => {
   return (
     await Api<any>({
-      method: Method.GET,
+      method: Method.PATCH,
       url: `/todos/${todoId}`,
-      params: params,
+      body,
     })
   ).data;
 };
@@ -46,7 +46,7 @@ export const patchTodo = async (
 export const deleteTodo = async (todoId: string): Promise<any> => {
   return (
     await Api<any>({
-      method: Method.GET,
+      method: Method.DELETE,
       url: `/todos/${todoId}`,
     })
   ).data;
