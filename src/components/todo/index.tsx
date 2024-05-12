@@ -2,9 +2,11 @@ import { Button, Stack, Typography } from "@mui/material";
 import { TodoProps } from "./index.types";
 import { StatusEnum } from "@/services/todos/index.types";
 import { memo } from "react";
+import { deleteTodo, patchTodo } from "@/services/todos";
 
 function Todo(props: TodoProps) {
-  const { todo } = props;
+  const { todo, doneTodo, deleteTodoHandler, setEditTodoData } = props;
+
   return (
     <Stack
       direction="column"
@@ -14,13 +16,13 @@ function Todo(props: TodoProps) {
       p={2}
       borderRadius={1}
     >
-      <Stack direction="row" alignItems="center" spacing={1}>
+      <Stack direction="row" spacing={1}>
         <Typography fontWeight="bold" variant="h5">
           Title:
         </Typography>
         <Typography variant="h5">{todo.title}</Typography>
       </Stack>
-      <Stack direction="row" alignItems="center" spacing={1}>
+      <Stack direction="row" spacing={1}>
         <Typography fontWeight="bold" variant="h5">
           Description:
         </Typography>
@@ -33,11 +35,23 @@ function Todo(props: TodoProps) {
         alignItems="center"
       >
         <Stack direction="row" spacing={1}>
-          <Button variant="contained" color="success">
-            Done
+          {todo.status !== StatusEnum.DONE && (
+            <Button
+              onClick={() => doneTodo(todo.id)}
+              variant="contained"
+              color="success"
+            >
+              Done
+            </Button>
+          )}
+          <Button onClick={() => setEditTodoData(todo)} variant="outlined">
+            Edit
           </Button>
-          <Button variant="outlined">Edit</Button>
-          <Button variant="text" color="error">
+          <Button
+            onClick={() => deleteTodoHandler(todo.id)}
+            variant="text"
+            color="error"
+          >
             Delete
           </Button>
         </Stack>
