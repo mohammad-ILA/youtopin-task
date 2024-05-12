@@ -1,12 +1,19 @@
 import Todo from "@/components/todo";
 import WriteTodo from "@/components/write-todo";
-import { getTodosList, postTodo } from "@/services/todos";
-import { TodoType } from "@/services/todos/index.types";
+import {
+  deleteTodo,
+  getTodosList,
+  patchTodo,
+  postTodo,
+  putTodo,
+} from "@/services/todos";
+import { StatusEnum, TodoType } from "@/services/todos/index.types";
 import { Box, Divider, Typography } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 
 export default function Home() {
   const [todos, setTodos] = useState<TodoType[]>([]);
+  const [editTodoData, setEditTodoData] = useState<TodoType>();
   useEffect(() => {
     getTodoListHandler();
   }, []);
@@ -27,19 +34,53 @@ export default function Home() {
     } catch (err) {}
   },
   []);
+  const deleteTodoHandler = useCallback(async function (todoId: string) {
+    try {
+      await deleteTodo(todoId);
+      getTodoListHandler();
+    } catch (err) {}
+  }, []);
+  const doneTodo = useCallback(async function (todoId: string) {
+    try {
+      await patchTodo({ status: StatusEnum.DONE }, todoId);
+      getTodoListHandler();
+    } catch (err) {}
+  }, []);
+  const editTodoHandler = useCallback(async function (
+    todo: TodoType,
+    callback?: () => void
+  ) {
+    try {
+      await putTodo(todo);
+      callback?.();
+      getTodoListHandler();
+      setEditTodoData(undefined);
+    } catch (err) {}
+  },
+  []);
 
   return (
     <Box width="600px" mx="auto">
       <Typography my={2} variant="h4" fontWeight="bold">
         Write a todo
       </Typography>
-      <WriteTodo addTodo={addTodo} />
+      <WriteTodo
+        addTodo={addTodo}
+        editTodo={editTodoHandler}
+        editTodoData={editTodoData}
+      />
       <Divider />
       <Typography mt={2} variant="h4" fontWeight="bold">
         Todos
       </Typography>
       {todos.map((todo) => (
-        <Todo todo={todo} key={todo.id} />
+        <Todo
+          doneTodo={doneTodo}
+          deleteTodoHandler={deleteTodoHandler}
+          todo={todo}
+          key={todo.id}
+          setEditTodoData={setEditTodoData}
+        />
       ))}
     </Box>
   );
