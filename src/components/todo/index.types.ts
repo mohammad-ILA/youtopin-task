@@ -1,5 +1,5 @@
 import { TodoType } from "@/services/todos/index.types";
 
-export interface TodoListProps {
+export interface TodoProps {
   todo: TodoType;
 }

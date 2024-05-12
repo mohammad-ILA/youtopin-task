@@ -1,9 +1,9 @@
 import { Button, Stack, Typography } from "@mui/material";
-import { TodoListProps } from "./index.types";
+import { TodoProps } from "./index.types";
 import { StatusEnum } from "@/services/todos/index.types";
 import { memo } from "react";
 
-function TodoList(props: TodoListProps) {
+function Todo(props: TodoProps) {
   const { todo } = props;
   return (
     <Stack
@@ -55,4 +55,4 @@ function TodoList(props: TodoListProps) {
   );
 }
 
-export default memo(TodoList);
+export default memo(Todo);

@@ -1,4 +1,4 @@
-import TodoList from "@/components/todo-list";
+import Todo from "@/components/todo";
 import WriteTodo from "@/components/write-todo";
 import { getTodosList, postTodo } from "@/services/todos";
 import { TodoType } from "@/services/todos/index.types";
@@ -39,7 +39,7 @@ export default function Home() {
         Todos
       </Typography>
       {todos.map((todo) => (
-        <TodoList todo={todo} key={todo.id} />
+        <Todo todo={todo} key={todo.id} />
       ))}
     </Box>
   );
