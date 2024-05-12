@@ -4,7 +4,7 @@ import { createTheme } from "@mui/material";
 import type { AppProps } from "next/app";
 
 const theme = createTheme({
-  direction: "rtl",
+  direction: "ltr",
   typography: {
     fontFamily: iransans.style.fontFamily,
   },
