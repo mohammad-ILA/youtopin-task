@@ -1,6 +1,19 @@
-import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
+import { iransans } from "@/components/fonts";
+import { ThemeProvider } from "@emotion/react";
+import { createTheme } from "@mui/material";
+import type { AppProps } from "next/app";
+
+const theme = createTheme({
+  direction: "rtl",
+  typography: {
+    fontFamily: iransans.style.fontFamily,
+  },
+});
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <ThemeProvider theme={theme}>
+      <Component {...pageProps} />
+    </ThemeProvider>
+  );
 }
