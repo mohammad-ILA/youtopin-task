@@ -1,7 +1,8 @@
 import { Button, Stack, TextField } from "@mui/material";
-import { StatusEnum, TodoType, WriteTodoProps } from "./index.types";
+import { WriteTodoProps } from "./index.types";
 import { ChangeEvent, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { StatusEnum, TodoType } from "@/services/todos/index.types";
 export default function WriteTodo(props: WriteTodoProps) {
   const [todo, setTodo] = useState<TodoType>({
     title: "",

@@ -1,5 +1,6 @@
 import { Button, Stack, Typography } from "@mui/material";
 import { TodoListProps } from "./index.types";
+import { StatusEnum } from "@/services/todos/index.types";
 
 export default function TodoList(props: TodoListProps) {
   return (
