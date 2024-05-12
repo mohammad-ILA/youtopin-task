@@ -1,8 +1,10 @@
 import { Button, Stack, Typography } from "@mui/material";
 import { TodoListProps } from "./index.types";
 import { StatusEnum } from "@/services/todos/index.types";
+import { memo } from "react";
 
-export default function TodoList(props: TodoListProps) {
+function TodoList(props: TodoListProps) {
+  const { todo } = props;
   return (
     <Stack
       direction="column"
@@ -16,13 +18,13 @@ export default function TodoList(props: TodoListProps) {
         <Typography fontWeight="bold" variant="h5">
           Title:
         </Typography>
-        <Typography variant="h5">sdf</Typography>
+        <Typography variant="h5">{todo.title}</Typography>
       </Stack>
       <Stack direction="row" alignItems="center" spacing={1}>
         <Typography fontWeight="bold" variant="h5">
           Description:
         </Typography>
-        <Typography variant="h5">sdf</Typography>
+        <Typography variant="h5">{todo.description}</Typography>
       </Stack>
       <Stack
         direction="row"
@@ -39,11 +41,11 @@ export default function TodoList(props: TodoListProps) {
             Delete
           </Button>
         </Stack>
-        {status === StatusEnum.DONE ? (
+        {todo.status === StatusEnum.DONE ? (
           <Typography color="greenyellow" bgcolor="green">
             انجام شده
           </Typography>
-        ) : status === StatusEnum.TODO ? (
+        ) : todo.status === StatusEnum.TODO ? (
           <Typography color="red" bgcolor="yellow">
             انجام نشده
           </Typography>
@@ -52,3 +54,5 @@ export default function TodoList(props: TodoListProps) {
     </Stack>
   );
 }
+
+export default memo(TodoList);
